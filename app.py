@@ -15,3 +15,13 @@ def create_book():
     author = request.json.get('author')
     publisher = request.json.get('publisher')
     return f"book name: {book_name}, author: {author}, publisher: {publisher}"
+
+
+@app.route('book/<int:book_id>', methods=["PUT", "PATCH"])
+def update_book(book_id):
+    return f"book id is: {book_id}"
+
+
+@app.route('book/<int:book_id>', methods=["DELETE"])
+def delete_book(book_id):
+    return f"book id is: {book_id}"
