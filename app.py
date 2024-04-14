@@ -45,7 +45,23 @@ def create_book():
 
 @app.route('/book/<int:book_id>', methods=["PUT", "PATCH"])
 def update_book(book_id):
-    return f"book id is: {book_id}"
+    book = db.get_or_404(Book, book_id)
+    book_name = request.json.get('book_name')
+    author = request.json.get('author')
+    publisher = request.json.get('publisher')
+
+    if book_name is not None:
+        book.book_name = book_name
+
+    if author is not None:
+        book.author = author
+
+    if publisher is not None:
+        book.publisher = publisher
+
+    db.session.commit()
+
+    return book.to_dict()
 
 
 @app.route('/book/<int:book_id>', methods=["DELETE"])
